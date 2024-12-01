@@ -1,0 +1,62 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  height: 100vh;
+}
+
+#todo-container {
+  height: 400px;
+  width: 300px;
+  border: 2px solid rgba(0, 0, 0, 0.199);
+  border-radius: 10px;
+  margin: 20px auto;
+  margin-top: 70px;
+  padding: 20px;
+}
+
+.info {
+  height: 10%;
+  display: flex;
+}
+
+img {
+  height: 30px;
+  position: relative;
+  /* bottom: -10px; */
+}
+
+.add-todo {
+  width: 90%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-todo input {
+  width: 90%;
+  height: 90%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  padding-left: 10px;
+  padding-right: 20px;
+  font-size: 0.7rem;
+}
+
+.add-todo button {
+  width: 30%;
+  height: 90%;
+  border-radius: 20px;
+  border: none;
+  position: relative;
+  left: -20px;
+  background-color: orangered;
+}
