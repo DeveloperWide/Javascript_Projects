@@ -1,76 +1,73 @@
 const input = document.querySelector("input");
 const btn = document.getElementById("add-btn");
 const taskList = document.getElementById("task-list");
-const tasks = ["Code", "Eat", "Sleep"];
+
+// Initialize tasks with completion state
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 function displayTask() {
-  taskList.innerHTML = ""; // Clear the task list
-
+  taskList.innerHTML = "";
   tasks.forEach((task, index) => {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
 
-    // Task Text
     const taskText = document.createElement("span");
-    taskText.innerText = task;
+    taskText.innerText = task.text;
+    if (task.completed) {
+      taskText.style.textDecoration = "line-through";
+    }
 
-    // Complete Button
     const completeBtn = document.createElement("button");
     completeBtn.innerText = "Complete";
     completeBtn.classList.add("complete");
-
     completeBtn.addEventListener("click", () => {
-      taskText.style.textDecoration = "line-through";
+      task.completed = !task.completed;
+      saveToLocalStorage();
+      displayTask();
     });
 
-    //Edit Button
     const editBtn = document.createElement("button");
     editBtn.innerText = "Edit";
     editBtn.classList.add("edit");
-
     editBtn.addEventListener("click", () => {
-      const newTask = prompt("Edit The Task:", task);
+      const newTask = prompt("Edit The Task:", task.text);
       if (newTask) {
-        tasks[index] = newTask;
-        displayTask(); // Refresh the task list
+        task.text = newTask;
+        saveToLocalStorage();
+        displayTask();
       }
     });
-
-    //Delete Button
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerText = "Delete";
     deleteBtn.classList.add("delete");
     deleteBtn.addEventListener("click", () => {
-      tasks.splice(index, 1); // Remove the Task
-      displayTask(); // Refresh the task list
+      tasks.splice(index, 1);
+      saveToLocalStorage();
+      displayTask();
     });
-
-    // Append Elements
 
     taskDiv.appendChild(taskText);
     taskDiv.appendChild(completeBtn);
     taskDiv.appendChild(editBtn);
     taskDiv.appendChild(deleteBtn);
-
     taskList.appendChild(taskDiv);
   });
 }
 
-//Function to add a new task
 function addTask() {
-  let inpVal = input.value.trim();
-  if (inpVal.length === 0) {
-    console.log(`Input is Null`);
-  } else {
-    tasks.push(inpVal);
-    input.value = ""; // Clear the input field
-    displayTask(); // Refresh the task list
+  const newTask = input.value.trim();
+  if (newTask) {
+    tasks.push({ text: newTask, completed: false });
+    saveToLocalStorage();
+    input.value = "";
+    displayTask();
   }
 }
 
-// Initial display of tasks
-displayTask();
-
-// Add task button click event
 btn.addEventListener("click", addTask);
+displayTask();
