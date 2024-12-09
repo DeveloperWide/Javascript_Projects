@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+#Container {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIdaJQ0GrjC_9ryX6pxlIcwVYtUZLHqRBDNg&s");
+}
